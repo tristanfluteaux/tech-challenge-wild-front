@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useCallback } from "react"
+import { useCallback, useState } from "react"
 
 const InputSearch = ({ argo, setArgo, refresh, setRefresh }) => {
 
@@ -12,10 +12,7 @@ const InputSearch = ({ argo, setArgo, refresh, setRefresh }) => {
     const handleClick = async (event) => {
         event.preventDefault()
         const newPost = {...argo}
-        if (newPost.length > 19) {
-            alert('Nom trop long, chande de nom, va mourrir')
-        }
-         else if (argo) {
+        if (argo) {
             try {
                 const result = await axios.post('http://localhost:4000/argonauts', newPost)
                 console.log(result)
@@ -27,12 +24,6 @@ const InputSearch = ({ argo, setArgo, refresh, setRefresh }) => {
         }
     }
 
-    const check = () => {
-        if (argo > 19) {
-            alert('Nom trop long, chande de nom, va mourrir')
-        }
-    }
-
     return (  
         <div style={{display: 'flex', justifyContent:'center', paddingTop: '100px', paddingBottom: '100px'}}>
             <form method='post'>
@@ -40,12 +31,14 @@ const InputSearch = ({ argo, setArgo, refresh, setRefresh }) => {
                 type='text'
                 name='argo_name' 
                 key='argo_name'
+                placeholder='Add argonauts ?'
                 onChange={onChangeHandler} 
-                style={{width: '300px'}}
+                style={{width: '300px',height: '30px', textAlign:'center'}}
                 />
                 <button
                 type='submit'
                 onClick={handleClick}
+                style={{height: '35px'}}
                 >
                 Send 
                 </button>
